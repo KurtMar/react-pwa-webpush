@@ -14,9 +14,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
+    "dev-host": "vite --host may_replace_with_a_localtunnel_host.loca.lt",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "https-preview": "serve dist",
+    "https-preview": "yarn build && serve dist",
     "prepare": "husky install"
   },
   "dependencies": {

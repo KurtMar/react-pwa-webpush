@@ -6,6 +6,12 @@
 
 **Starter kit for modern web applications!**
 
+## Web Push addition
+This fork contains two new buttons in the header to test Web Push.
+Note that you must generate valid VAPID keys here: https://vapidkeys.com/ and set them in the backend environment and
+the public key in this frontend environment variable: `VITE_VAPID_PUBLIC_KEY`.
+
+
 ## Synopsis
 
 This project (a GitHub template) is an opinionated setup for modern web applications.

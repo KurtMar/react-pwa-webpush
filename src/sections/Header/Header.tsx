@@ -16,7 +16,13 @@ import { repository, title } from '@/config';
 import useHotKeysDialog from '@/store/hotkeys';
 import useNotifications from '@/store/notifications';
 import useSidebar from '@/store/sidebar';
+import useSubscription from '@/store/subscription';
 import useTheme from '@/store/theme';
+import {
+  configurePushSub,
+  isPushNotificationSupported,
+  sendNotificationToAll,
+} from '@/utils/notifications';
 
 import { HotKeysButton } from './styled';
 import { getRandomJoke } from './utils';
@@ -26,6 +32,9 @@ function Header() {
   const [, themeActions] = useTheme();
   const [, notificationsActions] = useNotifications();
   const [, hotKeysDialogActions] = useHotKeysDialog();
+  const [isSubscribed, subscriptionActions] = useSubscription();
+
+  subscriptionActions.checkSubscription();
 
   function showNotification() {
     notificationsActions.push({
@@ -67,6 +76,34 @@ function Header() {
             </Button>
           </FlexBox>
           <FlexBox>
+            {isPushNotificationSupported() && !isSubscribed && (
+              <FlexBox>
+                <Tooltip title="Request notification permission" arrow>
+                  <HotKeysButton
+                    size="small"
+                    variant="outlined"
+                    aria-label="request notification permission"
+                    onClick={configurePushSub}
+                  >
+                    Request notification permission
+                  </HotKeysButton>
+                </Tooltip>
+              </FlexBox>
+            )}
+            {isPushNotificationSupported() && isSubscribed && (
+              <FlexBox>
+                <Tooltip title="Send push notifications" arrow>
+                  <HotKeysButton
+                    size="small"
+                    variant="outlined"
+                    aria-label="send push notifications"
+                    onClick={() => sendNotificationToAll()}
+                  >
+                    Send push notifications
+                  </HotKeysButton>
+                </Tooltip>
+              </FlexBox>
+            )}
             <FlexBox>
               <Tooltip title="Hot keys" arrow>
                 <HotKeysButton

@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 function resetApp() {
   return window.location.reload();
 }
