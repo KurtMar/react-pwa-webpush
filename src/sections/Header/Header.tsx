@@ -18,11 +18,7 @@ import useNotifications from '@/store/notifications';
 import useSidebar from '@/store/sidebar';
 import useSubscription from '@/store/subscription';
 import useTheme from '@/store/theme';
-import {
-  configurePushSub,
-  isPushNotificationSupported,
-  sendNotificationToAll,
-} from '@/utils/notifications';
+import { isPushNotificationSupported, sendNotificationToAll } from '@/utils/notifications';
 
 import { HotKeysButton } from './styled';
 import { getRandomJoke } from './utils';
@@ -83,7 +79,7 @@ function Header() {
                     size="small"
                     variant="outlined"
                     aria-label="request notification permission"
-                    onClick={configurePushSub}
+                    onClick={subscriptionActions.subscribe}
                   >
                     Request notification permission
                   </HotKeysButton>
