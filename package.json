@@ -18,7 +18,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "https-preview": "yarn build && serve dist",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "https-tunnel": "ssh -R 80:localhost:5173 localhost.run"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
