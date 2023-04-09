@@ -1,6 +1,6 @@
 const publicVapidKey = import.meta.env.VITE_VAPID_PUBLIC_KEY;
 
-const url = 'http://localhost:8080';
+const url = '';
 
 export const isPushNotificationSupported = () => {
   return 'serviceWorker' in navigator && 'PushManager' in window;
@@ -56,13 +56,19 @@ export const sendNotification = async (subscription: PushSubscription /*, dataTo
 };
 
 export const sendNotificationToAll = async (dataToSend = {}) => {
-  await fetch(`${url}/api/notifications/broadcast`, {
-    method: 'POST',
-    body: JSON.stringify(dataToSend),
-    headers: {
-      'content-type': 'application/json',
-    },
-  });
+  try {
+    await fetch(`${url}/api/notifications/broadcast`, {
+      method: 'POST',
+      body: JSON.stringify(dataToSend),
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
+  } catch (error) {
+    const e = error as Error;
+    console.error(e);
+    alert(e?.message);
+  }
 };
 
 export const subscribeUser = async (subscription: PushSubscription) => {
@@ -100,6 +106,7 @@ export const getUserSubscription = async (swRegistration: ServiceWorkerRegistrat
 export const configurePushSub = async (): Promise<boolean> => {
   try {
     console.log('configuring push subscription...');
+    if (!publicVapidKey) throw new Error('VAPID_PUBLIC_KEY is not set.');
     const swRegistration = await navigator.serviceWorker.ready;
     // const swRegistration = await getSwRegistration();
     if (!swRegistration) {
