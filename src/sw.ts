@@ -9,7 +9,7 @@ import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching';
 
 export declare const self: ServiceWorkerGlobalScope & typeof globalThis;
 
-const url = 'http://localhost:8080';
+const url = '';
 
 (() => {
   'use strict';
